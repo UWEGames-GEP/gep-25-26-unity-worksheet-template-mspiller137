@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] public GameManager gameManager;
-    public List<string> items = new List<string>();
+    [SerializeField] private GameManager gameManager;
+    private List<string> items = new List<string>();
+    public List<string> _items = new List<string>();
 
 
 
@@ -21,30 +22,34 @@ public class Inventory : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.O))
             {
-                AddItem("sword");
+                AddItem("Sword");
             }
             else if (Input.GetKeyDown(KeyCode.P))
             {
-                Remove("sword");
+                Remove("Sword");
             }
             else if (Input.GetKeyDown(KeyCode.K))
             {
-                AddItem("Shield");
+                AddItem("Helmet");
             }
             else if (Input.GetKeyDown(KeyCode.L))
             {
-                Remove("Shield");
+                Remove("Helmet");
             }
         }
-        
+
+        _items = items;
+
+        //When items is List<Object>, can use .sort(Comparison<T>) to sort by individual attributes
+        _items.Sort();
     }
 
-    public void AddItem(string itemName)
+    private void AddItem(string itemName)
     {
         items.Add(itemName);
     }
 
-    public void Remove(string itemName)
+    private void Remove(string itemName)
     {
         items.Remove(itemName);
     }
