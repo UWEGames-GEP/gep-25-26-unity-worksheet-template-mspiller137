@@ -49,5 +49,15 @@ public class Inventory : MonoBehaviour
         items.Remove(itemName);
     }
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        CollectibleObject collisionItem = hit.gameObject.GetComponent<CollectibleObject>();
+
+        if (collisionItem != null)
+        {
+            items.Add(collisionItem.name);
+            Destroy(collisionItem.gameObject);
+        }
+    }
 
 }
