@@ -483,7 +483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.789
+      value: 1.8510001
       objectReference: {fileID: 0}
     - target: {fileID: 8944336655422409503, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -777,7 +777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.789
+      value: 1.8510001
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1306,7 +1306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: dd6a4e75cd3ca78418654c01c117d52c, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -1370,8 +1370,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 274649b0e221539409070ebf6c18918b, type: 3}
   - {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   FootstepAudioVolume: 0.3
-  JumpHeight: 1.8
-  Gravity: -9.81
+  JumpHeight: 1.2
+  Gravity: -15
   JumpTimeout: 0.3
   FallTimeout: 0.15
   Grounded: 1
@@ -1448,6 +1448,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1415664460}
   _items: []
+--- !u!114 &1833100123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833100112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6940f437284fe4ca30eed5a4e976b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1901891739
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,7 +1604,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9182bf7c8df024645bbef02042272a63, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.003
+      value: 0.065
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9182bf7c8df024645bbef02042272a63, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1630,6 +1642,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: akai_e_espiritu (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9182bf7c8df024645bbef02042272a63, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 9182bf7c8df024645bbef02042272a63, type: 3}
       propertyPath: m_Controller
       value: 
@@ -1659,6 +1675,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9182bf7c8df024645bbef02042272a63, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1833100121}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9182bf7c8df024645bbef02042272a63, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1833100123}
   m_SourcePrefab: {fileID: 100100000, guid: 9182bf7c8df024645bbef02042272a63, type: 3}
 --- !u!1 &2092976099
 GameObject:
