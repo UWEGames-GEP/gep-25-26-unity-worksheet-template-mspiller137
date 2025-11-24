@@ -1,12 +1,16 @@
+using StarterAssets;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PlayerCharacterBehaviour : MonoBehaviour//, ThirdPersonController
+public class PlayerCharacterBehaviour : ThirdPersonController
 {
-    //private void OnPause(InputValue value)
-    //{
-    //    if (value.isPressed)
-    //    {
-    //        Debug.Log("Pause Game");
-    //    }
-    //}
+    [SerializeField] private GameManager gameManager;
+
+    private void OnPause(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            gameManager.PauseGame();
+        }
+    }
 }

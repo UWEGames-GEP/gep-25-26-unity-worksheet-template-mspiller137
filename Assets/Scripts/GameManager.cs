@@ -22,23 +22,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (state)
-        {
-            case GameState.GAMEPLAY:
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    state = GameState.PAUSE;
-                    stateChanged = true;
-                }
-                break;
-            case GameState.PAUSE:
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    state = GameState.GAMEPLAY;
-                    stateChanged = true;
-                }
-                break;
-        }
+        
     }
 
     private void LateUpdate()
@@ -56,6 +40,27 @@ public class GameManager : MonoBehaviour
                     Time.timeScale = 0.0f;
                     break;
             }
+        }
+    }
+
+    public void PauseGame()
+    {
+        switch (state)
+        {
+            case GameState.GAMEPLAY:
+                //if (Input.GetKeyDown(KeyCode.Escape))
+                //{
+                    state = GameState.PAUSE;
+                    stateChanged = true;
+                //}
+                break;
+            case GameState.PAUSE:
+                //if (Input.GetKeyDown(KeyCode.Escape))
+                //{
+                    state = GameState.GAMEPLAY;
+                    stateChanged = true;
+                //}
+                break;
         }
     }
 }
