@@ -4,9 +4,10 @@ using System.Collections.Generic;
 public class Inventory : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
-    private List<string> items = new List<string>();
-    public List<string> _items = new List<string>();
+    [SerializeField] private Transform collectiblesTransform;
 
+    private List<CollectibleObject> items = new List<CollectibleObject>();
+    public List<CollectibleObject> _items = new List<CollectibleObject>();    
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,40 +19,64 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameManager.state == GameManager.GameState.GAMEPLAY)
-        {
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                AddItem("Sword");
-            }
-            else if (Input.GetKeyDown(KeyCode.P))
-            {
-                Remove("Sword");
-            }
-            else if (Input.GetKeyDown(KeyCode.K))
-            {
-                AddItem("Helmet");
-            }
-            else if (Input.GetKeyDown(KeyCode.L))
-            {
-                Remove("Helmet");
-            }
-        }
+        //if(gameManager.state == GameManager.GameState.GAMEPLAY)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.O))
+        //    {
+        //        AddItem("Sword");
+        //    }
+        //    else if (Input.GetKeyDown(KeyCode.P))
+        //    {
+        //        Remove("Sword");
+        //    }
+        //    else if (Input.GetKeyDown(KeyCode.K))
+        //    {
+        //        AddItem("Helmet");
+        //    }
+        //    else if (Input.GetKeyDown(KeyCode.L))
+        //    {
+        //        Remove("Helmet");
+        //    }
+        //}
 
         _items = items;
 
         //When items is List<Object>, can use .sort(Comparison<T>) to sort by individual attributes
-        _items.Sort();
+        //IComparer<CollectibleObject> comparer = CollectibleObject.name;
+        //_items.Sort();
     }
 
-    private void AddItem(string itemName)
+    private void AddItem(CollectibleObject item)
     {
-        items.Add(itemName);
+        items.Add(item);
     }
 
-    private void Remove(string itemName)
+    private void Remove(CollectibleObject item)
     {
-        items.Remove(itemName);
+        items.Remove(item);
+    }
+
+    public void Remove()
+    {
+        if(gameManager.state == GameManager.GameState.GAMEPLAY && _items.Count > 0 && transform.position.y < 1)
+        {
+            CollectibleObject item = items[0];
+
+            Vector3 playerLoc = transform.position;
+            Vector3 playerFor = transform.forward;
+            Vector3 itemLoc = playerLoc + playerFor * 2;
+            itemLoc.y = 1;
+            //Debug.Log("PlayerLoc = " + playerLoc + " / ItemLoc = " + itemLoc);
+
+            Quaternion playerRot = transform.rotation;
+            Quaternion itemRot = playerRot * Quaternion.Euler(0, 180, 0);
+
+            GameObject newItem = Instantiate(item.gameObject, itemLoc, itemRot, collectiblesTransform);
+            newItem.SetActive(true);
+
+            items.Remove(item);
+            Destroy(item.gameObject);
+        }
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -60,8 +85,8 @@ public class Inventory : MonoBehaviour
 
         if (collisionItem != null)
         {
-            items.Add(collisionItem.itemName);
-            Destroy(collisionItem.gameObject);
+            items.Add(collisionItem);
+            collisionItem.gameObject.SetActive(false);
         }
     }
 

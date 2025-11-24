@@ -13,4 +13,14 @@ public class PlayerCharacterBehaviour : ThirdPersonController
             gameManager.PauseGame();
         }
     }
+
+    private void OnRemoveItem(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            Inventory inventory = FindAnyObjectByType<Inventory>();
+            Debug.Log("Remove Item");
+            inventory.Remove();
+        }
+    }
 }
