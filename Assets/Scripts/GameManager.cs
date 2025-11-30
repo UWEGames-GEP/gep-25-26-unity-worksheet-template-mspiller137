@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public GameState state;
     public bool stateChanged = false;
+    public GameObject inventoryUI;
 
 
 
@@ -35,9 +36,13 @@ public class GameManager : MonoBehaviour
             {
                 case GameState.GAMEPLAY:
                     Time.timeScale = 1.0f;
+                    inventoryUI.SetActive(false);
+                    Cursor.lockState = CursorLockMode.Locked;
                     break;
                 case GameState.PAUSE:
                     Time.timeScale = 0.0f;
+                    inventoryUI.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
                     break;
             }
         }

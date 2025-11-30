@@ -53,7 +53,20 @@ public class Inventory : MonoBehaviour
 
     private void Remove(CollectibleObject item)
     {
+        Vector3 playerLoc = transform.position;
+        Vector3 playerFor = transform.forward;
+
+        Vector3 itemLoc = playerLoc + playerFor * 2;
+        itemLoc.y = 1;
+
+        Quaternion playerRot = transform.rotation;
+        Quaternion itemRot = playerRot * Quaternion.Euler(0, 180, 0);
+
+        GameObject newItem = Instantiate(item.gameObject, itemLoc, itemRot, collectiblesTransform);
+        newItem.SetActive(true);
+
         items.Remove(item);
+        Destroy(item.gameObject);
     }
 
     public void Remove()
@@ -62,20 +75,15 @@ public class Inventory : MonoBehaviour
         {
             CollectibleObject item = items[0];
 
-            Vector3 playerLoc = transform.position;
-            Vector3 playerFor = transform.forward;
-            Vector3 itemLoc = playerLoc + playerFor * 2;
-            itemLoc.y = 1;
-            //Debug.Log("PlayerLoc = " + playerLoc + " / ItemLoc = " + itemLoc);
+            Remove(item);
+        }
+    }
 
-            Quaternion playerRot = transform.rotation;
-            Quaternion itemRot = playerRot * Quaternion.Euler(0, 180, 0);
-
-            GameObject newItem = Instantiate(item.gameObject, itemLoc, itemRot, collectiblesTransform);
-            newItem.SetActive(true);
-
-            items.Remove(item);
-            Destroy(item.gameObject);
+    public void Remove(int buttonNum)
+    {
+        if(buttonNum < _items.Count)
+        {
+            Remove(items[buttonNum]);
         }
     }
 
