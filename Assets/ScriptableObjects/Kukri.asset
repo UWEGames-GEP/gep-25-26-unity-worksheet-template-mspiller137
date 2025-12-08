@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0d499be8fd43654eb76a1b067e06284, type: 3}
+  m_Name: Kukri
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1700436316084819957, guid: f11c6956012374941970e45c7fb73afd, type: 3}
+  type: 0
+  description: 
+  weight: 1
+  value: 15
+  materialType: 1
+  damage: 5
+  attackInterval: 0.25
+  defenseBonus: 0
+  enchantment: 0
+  wieldType: 2
