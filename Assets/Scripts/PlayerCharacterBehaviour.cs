@@ -23,4 +23,12 @@ public class PlayerCharacterBehaviour : ThirdPersonController
             inventory.Remove();
         }
     }
+
+    private void OnOpenInventory(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            gameManager.OpenInventory();
+        }
+    }
 }

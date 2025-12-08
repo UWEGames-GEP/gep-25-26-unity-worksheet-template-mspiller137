@@ -51,9 +51,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RemoveItem",
+                    "name": "OpenInventory",
                     "type": "Button",
-                    "id": "75caa3f8-d4dd-4601-a850-55b141914d99",
+                    "id": "503e30db-7045-4e3c-9351-b7b6e7c4e74f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -250,12 +250,12 @@
                 },
                 {
                     "name": "",
-                    "id": "ed252f74-b36c-4baf-89e2-6f6731f065e3",
-                    "path": "<Keyboard>/q",
+                    "id": "1a652d3d-8732-41bb-84f7-7733a1fb78de",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
-                    "action": "RemoveItem",
+                    "action": "OpenInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

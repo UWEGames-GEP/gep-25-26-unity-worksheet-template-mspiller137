@@ -2,15 +2,21 @@ using UnityEngine;
 
 public class InventoryState : State
 {
-    public override void Enter()
+    private GameObject inventoryUIGlobal;
+    public override void Enter(GameObject inventoryUI)
     {
-        Time.timeScale = 0.0f;
-        inventoryUI.SetActive(true);
+        //Debug.Log("inventory enter");
+        Time.timeScale = 0.0f;        
         Cursor.lockState = CursorLockMode.None;
+        if(inventoryUIGlobal == null)
+        {
+            inventoryUIGlobal = inventoryUI;
+        }
+        inventoryUIGlobal.SetActive(true);
     }
 
     public override void Exit()
     {
-
+        inventoryUIGlobal.SetActive(false);
     }
 }

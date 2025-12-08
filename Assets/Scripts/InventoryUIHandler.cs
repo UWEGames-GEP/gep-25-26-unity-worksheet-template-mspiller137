@@ -22,12 +22,12 @@ public class InventoryUIHandler : MonoBehaviour
 
     private void RefreshInventory()
     {
-        Debug.Log(inventoryUIButtons.Count);
+        //Debug.Log(inventoryUIButtons.Count);
         foreach (GameObject button in inventoryUIButtons) 
         {
             button.SetActive(false);
         }
-        Debug.Log("Post-foreach");
+        //Debug.Log("Post-foreach");
 
         for(int i = 0; i < inventory._items.Count; i++)
         {

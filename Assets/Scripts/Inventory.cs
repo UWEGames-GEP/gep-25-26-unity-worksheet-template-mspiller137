@@ -71,7 +71,8 @@ public class Inventory : MonoBehaviour
 
     public void Remove()
     {
-        if(gameManager.state == GameManager.GameState.GAMEPLAY && _items.Count > 0 && transform.position.y < 1)
+        GameplayState testState = new GameplayState();
+        if(gameManager.currentState == testState && _items.Count > 0 && transform.position.y < 1)
         {
             CollectibleObject item = items[0];
 
