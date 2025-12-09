@@ -7,6 +7,6 @@ public class InventoryButtonUpdater : MonoBehaviour
 
     public void SetButtonText(CollectibleObject item)
     {
-        buttonText.text = item.itemName;
+        buttonText.text = item.item.itemName;
     }
 }

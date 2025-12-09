@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0d499be8fd43654eb76a1b067e06284, type: 3}
-  m_Name: Broadsword
+  m_Name: Shield
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1731646951258653396, guid: d981ec2b5bed0754c89da44eddb01b8e, type: 3}
+  prefab: {fileID: 5750943162514217586, guid: a0d5d13a3250be44abb62b50bc34f541, type: 3}
   type: 0
-  description: 
-  weight: 3
+  description: Big, heavy, stops you getting poked by sharp objects
+  weight: 5
   value: 25
-  materialType: 1
-  damage: 8
-  attackInterval: 0.5
-  defenseBonus: 0
+  materialType: 0
+  damage: 0
+  attackInterval: 0
+  defenseBonus: 10
   enchantment: 0
-  wieldType: 2
+  wieldType: 1

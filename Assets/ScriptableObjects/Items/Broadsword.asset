@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0d499be8fd43654eb76a1b067e06284, type: 3}
-  m_Name: Greatsword
+  m_Name: Broadsword
   m_EditorClassIdentifier: 
-  prefab: {fileID: 4826507475498438846, guid: 70d5167f1ff4a2640a72eff38a462ccd, type: 3}
+  prefab: {fileID: 1731646951258653396, guid: d981ec2b5bed0754c89da44eddb01b8e, type: 3}
   type: 0
-  description: 
-  weight: 5
-  value: 40
-  materialType: 1
-  damage: 22
-  attackInterval: 1.2
+  description: The mainstay weapon for any aspiring soldier, this blade offers a
+    good balance between speed and power
+  weight: 3
+  value: 25
+  materialType: 0
+  damage: 8
+  attackInterval: 0.5
   defenseBonus: 0
   enchantment: 0
-  wieldType: 3
+  wieldType: 0

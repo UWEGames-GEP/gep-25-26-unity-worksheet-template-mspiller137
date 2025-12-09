@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
+    //DEPRECATED INVENTORY
+    //Keeping her as reference and as it is original worksheet material (before extension tasks)
+
+
     private GameManager gameManager;
     private Transform collectiblesTransform;
 

@@ -15,6 +15,7 @@ public abstract class ItemObject : ScriptableObject
     public GameObject prefab;
     //Holds the item category
     public ItemType type;
+    public string itemName;
     [TextArea(15,20)]
     public string description;
     public float weight;
