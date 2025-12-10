@@ -1,25 +1,73 @@
+using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryUIHandler : MonoBehaviour
 {
-    public Inventory inventory;
-    public GameObject inventoryUIPanel;
-    public List<GameObject> inventoryUIButtons = new List<GameObject>();
+    //CHANGES - Commented code is from original iteration. Code in use has been reworked to work with 
 
-    private void Start()
+    //public Inventory inventory;    
+    //public GameObject inventoryUIPanel;
+    //public List<GameObject> inventoryUIButtons = new List<GameObject>();
+    public InventoryBase inventory;
+    public GameObject pagePrefab;
+    public GameObject pageParent;
+
+    //private void OnEnable()
+    //{
+    //    inventoryUIButtons.Clear();
+    //    AddDesendants(inventoryUIPanel.transform, inventoryUIButtons);
+    //    RefreshInventory();
+    //}
+
+    public void Start()
     {
-        
+        CreateDisplay();
     }
 
-    private void OnEnable()
+    public void Update()
     {
-        inventoryUIButtons.Clear();
-        AddDesendants(inventoryUIPanel.transform, inventoryUIButtons);
-        RefreshInventory();
+        //UpdateDisplay();
     }
 
+    public void CreateDisplay()
+    {
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            float pageNum = i / 30;
+            int truePageNum = (int)Math.Ceiling(pageNum);
+            string pageToFind = "Page" + truePageNum.ToString();
+            GameObject pageObject = GameObject.Find(pageToFind);
+            if (pageObject == null)
+            {
+                pageObject = Instantiate(pagePrefab);
+            }
+
+
+            var obj = Instantiate(inventory.items[i].item.prefab);
+            var buttonLabelTransform = obj.transform.Find("InventoryButtonText");
+            if (buttonLabelTransform != null)
+            {
+                buttonLabelTransform.GetComponent<TextMeshProUGUI>().text = inventory.items[i].item.itemName;
+            }
+            var buttonAmountTransform = obj.transform.Find("InventoryButtonAmount");
+            if (buttonAmountTransform != null)
+            {
+                buttonAmountTransform.GetComponent<TextMeshProUGUI>().text = inventory.items[i].amount.ToString();
+            }
+
+        }
+    }
+
+    public void UpdateDisplay()
+    {
+
+    }
+
+
+    /*
     private void RefreshInventory()
     {
         //Debug.Log(inventoryUIButtons.Count);
@@ -29,21 +77,18 @@ public class InventoryUIHandler : MonoBehaviour
         }
         //Debug.Log("Post-foreach");
 
-        for(int i = 0; i < inventory._items.Count; i++)
+        for(int i = 0; i < inventory.items.Count; i++)
         {
             if(i < inventoryUIButtons.Count)
             {
                 var button = inventoryUIButtons[i].GetComponent<InventoryButtonUpdater>();
-                var item = inventory._items[i];
+                var item = inventory.items[i];
 
                 button.gameObject.SetActive(true);
-                button.SetButtonText(item);
+                button.SetButtonText(item.item);
             }
         }
-
-
-
-        Debug.Log("Refresh Inventory");
+        //Debug.Log("Refresh Inventory");
     }
 
     public void OnInventoryUIButton(int buttonNum)
@@ -51,15 +96,15 @@ public class InventoryUIHandler : MonoBehaviour
         inventory.Remove(buttonNum);
         RefreshInventory();
     }
-
+    */
     private void AddDesendants(Transform parent, List<GameObject> list)
     {
-        foreach(Transform child in parent)
+        foreach (Transform child in parent)
         {
-            if(child.gameObject.tag == "Button")
+            if (child.gameObject.tag == "Button")
             {
                 list.Add(child.gameObject);
-            }            
+            }
         }
     }
 }

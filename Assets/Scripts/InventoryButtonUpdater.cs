@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class InventoryButtonUpdater : MonoBehaviour
 {
+    //Potentially Deprecated - unable to acquire text child of button prefab to apply function
     public TMP_Text buttonText;
 
-    public void SetButtonText(CollectibleObject item)
+    public void SetButtonText(ItemObject item)
     {
-        buttonText.text = item.item.itemName;
+        buttonText.text = item.itemName;
     }
 }

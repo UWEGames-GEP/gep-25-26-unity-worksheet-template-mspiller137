@@ -34,21 +34,32 @@ public class PlayerCharacterBehaviour : ThirdPersonController
         }
     }
 
+    //DEPRECATED - moved back to OnControllerColliderHit to allow for collisions and gravity at the same time
     //Trigger on collider removes any actual collision effect.
     //https://discussions.unity.com/t/collider-with-both-collision-and-triggering-choosing-at-runtime/571572/2
-    public void OnTriggerEnter(Collider other)
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    var item = other.GetComponentInParent<CollectibleObject>();
+    //    if (item)
+    //    {
+    //        inventory.AddItem(item.item, 1);
+    //        Destroy(other.gameObject);
+    //    }
+    //}
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        var item = other.GetComponentInParent<CollectibleObject>();
+        var item = hit.gameObject.GetComponent<CollectibleObject>();
         if (item)
         {
             inventory.AddItem(item.item, 1);
-            Destroy(other.gameObject);
+            Destroy(hit.gameObject);
         }
     }
 
     private void OnApplicationQuit()
     {
-        inventory.items.Clear();
+        //inventory.items.Clear();
     }
 
 }
