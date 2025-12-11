@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 5071669396672991934, guid: d71c1cba26abd83409fff73876d679dc, type: 3}
   type: 0
+  itemName: Double Ended Spear
   description: An exotic weapon imported from far-away shores, this double-ended
     spear is a more basic version of the ostentatious original
   weight: 5

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6374676700902368361, guid: 50a3a28ea4cfafa44b7c0d318bcb762b, type: 3}
   type: 0
+  itemName: Axe
   description: A brutal usually seen in the hands of raiders, it hits hard whoever
     wields it
   weight: 6

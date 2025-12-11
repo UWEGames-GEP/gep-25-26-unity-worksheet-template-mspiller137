@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 5463459404785014617, guid: c71e2f0f585ae2743ad4747a5b34071f, type: 3}
   type: 0
+  itemName: Bardiche
   description: A staple weapon of the Royal Guard, this long hafted polearm has an
     axe-head designed for splitting helms.
   weight: 4

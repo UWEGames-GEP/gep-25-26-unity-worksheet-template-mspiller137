@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 1700436316084819957, guid: f11c6956012374941970e45c7fb73afd, type: 3}
   type: 0
+  itemName: Kukri
   description: Lil slasher
   weight: 1
   value: 15

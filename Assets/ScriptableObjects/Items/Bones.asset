@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 4735221276784898094, guid: 5c58fb2d7ad52444f85fc37bcad1f0a5, type: 3}
   type: 3
+  itemName: Bone
   description: It looks like your friends didn't fare as well as you
   weight: 0.38
   value: 2

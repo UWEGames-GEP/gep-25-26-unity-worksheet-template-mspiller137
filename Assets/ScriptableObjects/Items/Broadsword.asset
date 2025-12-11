@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 1731646951258653396, guid: d981ec2b5bed0754c89da44eddb01b8e, type: 3}
   type: 0
+  itemName: Broadsword
   description: The mainstay weapon for any aspiring soldier, this blade offers a
     good balance between speed and power
   weight: 3
@@ -23,4 +24,4 @@ MonoBehaviour:
   attackInterval: 0.5
   defenseBonus: 0
   enchantment: 0
-  wieldType: 0
+  wieldType: 2

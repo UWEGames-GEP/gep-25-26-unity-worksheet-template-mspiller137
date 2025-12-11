@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 4826507475498438846, guid: 70d5167f1ff4a2640a72eff38a462ccd, type: 3}
   type: 0
+  itemName: Greatsword
   description: A sword, but bigger, I don't know what you expected
   weight: 5
   value: 40
