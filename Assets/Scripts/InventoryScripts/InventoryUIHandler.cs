@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryUIHandler : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class InventoryUIHandler : MonoBehaviour
     public GameObject pagePrefab;
     public GameObject pageParent;
     public GameObject[] buttonPrefabArray;
+    private int currentPageNum;
 
     //private void OnEnable()
     //{
@@ -26,6 +28,8 @@ public class InventoryUIHandler : MonoBehaviour
     private void OnEnable()
     {
         UpdateDisplay();
+        currentPageNum = 1;
+        UpdateDisplayedPage(currentPageNum);
     }
 
     //Moving UpdateDisplay to OnEnable removes the need for CreateDisplay
@@ -89,21 +93,30 @@ public class InventoryUIHandler : MonoBehaviour
     public void UpdateDisplay()
     {
         //Unsure if this is performative. See above commented function for logic of choosing this one
-        foreach(Transform child in pageParent.transform)
+        foreach (Transform child in pageParent.transform)
         {
-            if(child.gameObject.name.Substring(0, child.gameObject.name.Length).Contains("Page"))
+            if (child.gameObject.name.Contains("Page"))
             {
-                Destroy(child.gameObject);
+                var inventoryButtonsObject = child.transform.GetChild(0);
+                foreach (Transform child2 in inventoryButtonsObject.transform)
+                {
+                    Destroy(child2.gameObject);
+                }
             }
         }
 
-        for(int i = 0; i < inventory.items.Count; i++)
+        //Re-instantiate all buttons and instantiate new pages if necessary
+        for (int i = 0; i < inventory.items.Count; i++)
         {
             GameObject pageObject = InstantiatePage(i);
 
             GameObject buttonPrefab = FindButtonPrefab(inventory.items[i].item.itemName);
 
             var obj = Instantiate(buttonPrefab, pageObject.transform.GetChild(0).transform);
+            if (obj.name.Contains("(Clone)"))
+            {
+                obj.name = obj.name.Replace("(Clone)", i.ToString());
+            }
             var buttonLabelTransform = obj.transform.Find("InventoryButtonText");
             if (buttonLabelTransform != null)
             {
@@ -114,7 +127,45 @@ public class InventoryUIHandler : MonoBehaviour
             {
                 buttonAmountTransform.GetComponent<TextMeshProUGUI>().text = inventory.items[i].amount.ToString();
             }
+            obj.GetComponent<Button>().onClick.AddListener(() => inventory.Remove(inventory.items[i]));
+
+
         }
+
+        //For loop to decide which page change arrows to show
+        for (int i = 0; i < pageParent.transform.childCount; i++)
+        {
+            GameObject child = pageParent.transform.GetChild(i).gameObject;
+            if (child.name.Contains("Page"))
+            {
+                string finalPage = "Page" + (pageParent.transform.childCount - 1).ToString();
+                if(child.name == "Page1" && pageParent.transform.childCount - 1 > 1)
+                {
+                    child.transform.Find("PageForward").gameObject.SetActive(true);
+                    child.transform.Find("PageBack").gameObject.SetActive(false);
+                }
+                else if(child.name == "Page1")
+                {
+                    child.transform.Find("PageForward").gameObject.SetActive(false);
+                    child.transform.Find("PageBack").gameObject.SetActive(false);
+                }
+                else if (child.name == finalPage)
+                {
+                    child.transform.Find("PageForward").gameObject.SetActive(false);
+                    child.transform.Find("PageBack").gameObject.SetActive(true);
+                }
+                else
+                {
+                    child.transform.Find("PageForward").gameObject.SetActive(true);
+                    child.transform.Find("PageBack").gameObject.SetActive(true);
+                }
+
+                child.transform.Find("PageForward").GetComponent<Button>().onClick.AddListener(() => UpdateDisplayedPage(true));
+                child.transform.Find("PageBack").GetComponent<Button>().onClick.AddListener(() => UpdateDisplayedPage(false));
+            }           
+                
+        }
+
     }
 
 
@@ -159,7 +210,7 @@ public class InventoryUIHandler : MonoBehaviour
         }
     }
 
-    private GameObject FindButtonPrefab(string itemName) 
+    private GameObject FindButtonPrefab(string itemName)
     {
         GameObject buttonPrefab = null;
 
@@ -194,12 +245,13 @@ public class InventoryUIHandler : MonoBehaviour
         return buttonPrefab;
     }
 
-    private GameObject InstantiatePage(int i)
+    private GameObject InstantiatePage(float i)
     {
         //Math to find relevant page number
-        float pageNum = i / 30;
+        float pageNum = i / (float)30;
         pageNum = pageNum == 0 ? 1 : pageNum;
         int truePageNum = (int)Math.Ceiling(pageNum);
+        truePageNum = truePageNum == pageNum ? truePageNum + 1 : truePageNum;
         string pageToFind = "Page" + truePageNum.ToString();
 
         //If relevant page doesn't exist, instantiate one
@@ -207,7 +259,52 @@ public class InventoryUIHandler : MonoBehaviour
         if (pageObject == null)
         {
             pageObject = Instantiate(pagePrefab, pageParent.transform);
+            pageObject.name = pageToFind;
         }
         return pageObject;
+    }
+
+    public void UpdateDisplayedPage(bool pageIncrease)
+    {
+        int pageToShow = pageIncrease ? currentPageNum + 1 : currentPageNum - 1;
+        Debug.Log(pageToShow.ToString());
+        for (int i = 0; i < pageParent.transform.childCount; i++)
+        {
+            GameObject child = pageParent.transform.GetChild(i).gameObject;
+            if (child.name.Contains("Page"))
+            {
+                string pageToFind = "Page" + pageToShow.ToString();
+                if (child.name == pageToFind)
+                {
+                    child.gameObject.SetActive(true);
+                }
+                else
+                {
+                    child.gameObject.SetActive(false);
+                }
+            }
+        }
+        currentPageNum = pageToShow;
+    }
+
+    public void UpdateDisplayedPage(int pageToShow)
+    {
+        for (int i = 0; i < pageParent.transform.childCount; i++)
+        {
+            GameObject child = pageParent.transform.GetChild(i).gameObject;
+            if (child.name.Contains("Page"))
+            {
+                string pageToFind = "Page" + pageToShow.ToString();
+                if(child.name == pageToFind)
+                {
+                    child.gameObject.SetActive(true);
+                }
+                else
+                {
+                    child.gameObject.SetActive(false);
+                }
+            }
+        }
+        currentPageNum = pageToShow;
     }
 }

@@ -76,6 +76,7 @@ MonoBehaviour:
   inventory: {fileID: 11400000, guid: 071693c1cb0ccdc49b4fdbe1d3191d1c, type: 2}
   pagePrefab: {fileID: 0}
   pageParent: {fileID: 0}
+  buttonPrefabArray: []
 --- !u!1 &1461721237079460313
 GameObject:
   m_ObjectHideFlags: 0

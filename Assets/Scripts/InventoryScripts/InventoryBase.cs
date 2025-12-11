@@ -1,5 +1,7 @@
-using UnityEngine;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
+using static UnityEditor.Progress;
 
 //IMPORTANT - Inventory stored as scriptable object to allow for creation of more inventories
 //e.g. different loadouts for different classes that the player could choose
@@ -37,12 +39,60 @@ public class InventoryBase : ScriptableObject
     public virtual void AddItem(ItemObject _item, int _amount, InventoryBase giver, InventoryBase receiver) { }
 
 
-    //Remove function with item parameter is the base remove function. Use of this function will drop the item in front of the player. Overrides of this function route back to it
-    public virtual void Remove(CollectibleObject item) { }
+    //Remove function with InventorySlot parameter is the base remove function. Use of this function will drop the item in front of the player. Overrides of this function route back to it
+    public bool Remove(InventorySlot item)
+    {
+        bool toDestroy = false;
+
+        Transform playerTransform = GameObject.Find("Skeleton_110").gameObject.transform;
+        Vector3 playerLoc = playerTransform.position;
+        Vector3 playerFor = playerTransform.forward;
+
+        Vector3 itemLoc = playerLoc + playerFor * 2;
+        itemLoc.y = 1;
+
+        Quaternion playerRot = playerTransform.rotation;
+        Quaternion itemRot = playerRot * Quaternion.Euler(0, 180, 0);
+
+        Transform collectiblesTransform = GameObject.Find("Collectibles").gameObject.transform;
+        GameObject newItem = Instantiate(item.item.prefab, itemLoc, itemRot, collectiblesTransform);
+        newItem.SetActive(true);
+
+        if (item.amount == 1)
+        {
+            items.Remove(item);
+            toDestroy = true;
+        }
+        else
+        {
+            item.amount--;
+        }
+        return toDestroy;
+
+    }
     //Remove function with no parameters is to remove top item from list with a key press -- **DEPRECATED**
     public virtual void Remove() { }
     //Remove function with int parameter to drop item from player inventory. int is button index that relates to items list
-    public virtual void Remove(int buttonNum) { }
+    public void Remove(string buttonName)
+    {
+        bool toDestroy = false;
+        int buttonNum = 0;
+        if(!Int32.TryParse(buttonName.Replace("InventoryButton", ""), out buttonNum))
+        {
+            Debug.Log("Int conversion failed");
+        }
+
+        if (buttonNum < items.Count)
+        {
+            toDestroy = Remove(items[buttonNum]);
+        }
+
+        if (toDestroy)
+        {
+            GameObject buttonToDestroy = GameObject.Find(buttonName).gameObject;
+            Destroy(buttonToDestroy);
+        }
+    }
 
 
     //Potentially remove from inventory???
