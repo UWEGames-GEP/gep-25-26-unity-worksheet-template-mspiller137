@@ -112,7 +112,17 @@ public class InventoryUIHandler : MonoBehaviour
 
             GameObject buttonPrefab = FindButtonPrefab(inventory.items[i].item.itemName);
 
+            if(buttonPrefab == null)
+            {
+                Debug.Log("null button prefab");
+            }
+            if (pageObject.transform.GetChild(0).transform == null)
+            {
+                Debug.Log("PageObject child transform null");
+            }
+
             var obj = Instantiate(buttonPrefab, pageObject.transform.GetChild(0).transform);
+            
             if (obj.name.Contains("(Clone)"))
             {
                 obj.name = obj.name.Replace("(Clone)", i.ToString());
@@ -260,6 +270,7 @@ public class InventoryUIHandler : MonoBehaviour
         {
             pageObject = Instantiate(pagePrefab, pageParent.transform);
             pageObject.name = pageToFind;
+            //pageObject.transform.Find("InventoryButtons").GetComponent<InventoryUIHandler>().pageParent = pageParent;
         }
         return pageObject;
     }
