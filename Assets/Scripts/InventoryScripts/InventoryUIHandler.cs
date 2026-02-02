@@ -145,6 +145,7 @@ public class InventoryUIHandler : MonoBehaviour
         //For loop to decide which page change arrows to show
         for (int i = 0; i < pageParent.transform.childCount; i++)
         {
+            //Picking up Page1 twice?????
             GameObject child = pageParent.transform.GetChild(i).gameObject;
             if (child.name.Contains("Page"))
             {
