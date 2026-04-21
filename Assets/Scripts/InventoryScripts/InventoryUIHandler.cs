@@ -233,7 +233,7 @@ public class InventoryUIHandler : MonoBehaviour
             case "Bardiche":
                 buttonPrefab = buttonPrefabArray[1];
                 break;
-            case "Bones":
+            case "Bone":
                 buttonPrefab = buttonPrefabArray[2];
                 break;
             case "Broadsword":
