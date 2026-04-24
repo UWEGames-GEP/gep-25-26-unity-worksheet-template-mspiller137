@@ -149,11 +149,20 @@ public class InventoryUIHandler : MonoBehaviour
             var buttonComponent = obj.GetComponent<Button>();
             if(buttonComponent != null)
             {
-                int temp = i;
                 //Debug.Log("Button " + i + " Found");
                 //UnityAction dropAction = () => RemoveItem(inventory.items[i]);
                 //buttonComponent.onClick.AddListener(dropAction);
                 //buttonComponent.onClick.AddListener(() => { Debug.Log(temp); });
+
+                int temp = i;
+
+                if (i == 3)
+                {
+                    Debug.Log("Persistent: " + buttonComponent.onClick.GetPersistentEventCount());
+                    Debug.Log("Iterator: " + i);
+                    Debug.Log("Temp: " + temp);
+                }               
+                               
                 buttonComponent.onClick.AddListener(() => { RemoveItem(inventory.items[temp]); });
             }
 
