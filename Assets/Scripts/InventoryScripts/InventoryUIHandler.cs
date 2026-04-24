@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
@@ -93,16 +94,24 @@ public class InventoryUIHandler : MonoBehaviour
     public void UpdateDisplay()
     {
         //Unsure if this is performative. See above commented function for logic of choosing this one
+        //foreach (Transform child in pageParent.transform)
+        //{
+        //    if (child.gameObject.name.Contains("Page"))
+        //    {
+        //        var inventoryButtonsObject = child.transform.GetChild(0);
+        //        foreach (Transform child2 in inventoryButtonsObject.transform)
+        //        {
+        //            Destroy(child2.gameObject);
+        //        }
+        //    }
+        //}
+
         foreach (Transform child in pageParent.transform)
         {
-            if (child.gameObject.name.Contains("Page"))
+            if(child.name != "InventoryHeader")
             {
-                var inventoryButtonsObject = child.transform.GetChild(0);
-                foreach (Transform child2 in inventoryButtonsObject.transform)
-                {
-                    Destroy(child2.gameObject);
-                }
-            }
+                DestroyImmediate(child.gameObject);
+            }            
         }
 
         //Re-instantiate all buttons and instantiate new pages if necessary
@@ -121,7 +130,7 @@ public class InventoryUIHandler : MonoBehaviour
                 Debug.Log("PageObject child transform null");
             }
 
-            var obj = Instantiate(buttonPrefab, pageObject.transform.GetChild(0).transform);
+            var obj = InstantiateWithListeners(buttonPrefab, pageObject.transform.GetChild(0).transform);
             
             if (obj.name.Contains("(Clone)"))
             {
@@ -137,15 +146,24 @@ public class InventoryUIHandler : MonoBehaviour
             {
                 buttonAmountTransform.GetComponent<TextMeshProUGUI>().text = inventory.items[i].amount.ToString();
             }
-            obj.GetComponent<Button>().onClick.AddListener(() => inventory.Remove(inventory.items[i]));
+            var buttonComponent = obj.GetComponent<Button>();
+            if(buttonComponent != null)
+            {
+                int temp = i;
+                //Debug.Log("Button " + i + " Found");
+                //UnityAction dropAction = () => RemoveItem(inventory.items[i]);
+                //buttonComponent.onClick.AddListener(dropAction);
+                //buttonComponent.onClick.AddListener(() => { Debug.Log(temp); });
+                buttonComponent.onClick.AddListener(() => { RemoveItem(inventory.items[temp]); });
+            }
 
 
+            //obj.GetComponent<Button>().onClick.AddListener(() => RemoveItem(inventory.items[i]));
         }
 
         //For loop to decide which page change arrows to show
         for (int i = 0; i < pageParent.transform.childCount; i++)
         {
-            //Picking up Page1 twice?????
             GameObject child = pageParent.transform.GetChild(i).gameObject;
             if (child.name.Contains("Page"))
             {
@@ -173,8 +191,7 @@ public class InventoryUIHandler : MonoBehaviour
 
                 child.transform.Find("PageForward").GetComponent<Button>().onClick.AddListener(() => UpdateDisplayedPage(true));
                 child.transform.Find("PageBack").GetComponent<Button>().onClick.AddListener(() => UpdateDisplayedPage(false));
-            }           
-                
+            }   
         }
 
     }
@@ -262,7 +279,7 @@ public class InventoryUIHandler : MonoBehaviour
         float pageNum = i / (float)30;
         pageNum = pageNum == 0 ? 1 : pageNum;
         int truePageNum = (int)Math.Ceiling(pageNum);
-        truePageNum = truePageNum == pageNum ? truePageNum + 1 : truePageNum;
+        //truePageNum = truePageNum == pageNum ? truePageNum + 1 : truePageNum;
         string pageToFind = "Page" + truePageNum.ToString();
 
         //If relevant page doesn't exist, instantiate one
@@ -318,5 +335,18 @@ public class InventoryUIHandler : MonoBehaviour
             }
         }
         currentPageNum = pageToShow;
+    }
+
+    public void RemoveItem(InventorySlot itemToRemove)
+    {
+        inventory.Remove(itemToRemove);
+    }
+
+    GameObject InstantiateWithListeners(GameObject prefab, Transform parentTransform)
+    {
+        GameObject instance = GameObject.Instantiate(prefab, parentTransform) as GameObject;
+        if (instance.GetComponent<Button>() != null)
+            instance.GetComponent<Button>().onClick = prefab.GetComponent<Button>().onClick;
+        return instance;
     }
 }

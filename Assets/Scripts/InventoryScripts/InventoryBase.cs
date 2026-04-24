@@ -84,6 +84,7 @@ public class InventoryBase : ScriptableObject
 
         if (buttonNum < items.Count)
         {
+            //toDestroy = true;
             toDestroy = Remove(items[buttonNum]);
         }
 
